@@ -50,14 +50,12 @@ def _get_apps(url):
     doc = lxml.html.fromstring(r.content)
     pattern = r"id=(.+)"
     hrefs = _get_attrs(doc, '//a', 'href')
-    
-    apps = list(set([re.search(pattern, el).group(1)
-         for el in hrefs if el.startswith('/store/apps/details')]))
-    
+    apps = list([re.search(pattern, el).group(1)
+         for el in hrefs if el.startswith('/store/apps/details')])
     return apps
 
 
-def leaderboard(identifier, category=None, start=0, num=24, hl="en"):
+def leaderboard(identifier, category=None, start=0, num=24, hl="en", gl="us"):
     if identifier not in ('topselling_paid', 'topselling_free'):
         raise Exception("identifier must be topselling_paid or topselling_free")
 
@@ -67,7 +65,7 @@ def leaderboard(identifier, category=None, start=0, num=24, hl="en"):
             raise Exception('%s not exists in category list' % category)
         url += "/category/" + str(category).upper()
 
-    url += "/collection/%s?start=%s&num=%s&hl=%s" % (identifier, start, num, hl)
+    url += "/collection/%s?start=%s&num=%s&hl=%s&gl=%s" % (identifier, start, num, hl, gl)
     return _get_apps(url)
 
 def search(query, hl="en", c="apps"):
