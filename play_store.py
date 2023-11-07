@@ -19,6 +19,7 @@ CATEGORIES = [
 
 TOPSELLING_FREE = 'topselling_free'
 TOPSELLING_PAID = 'topselling_paid'
+TOPGROSSING = 'topgrossing'
 
 
 BASE_URL = "https://play.google.com"
@@ -56,8 +57,8 @@ def _get_apps(url):
 
 
 def leaderboard(identifier, category=None, start=0, num=24, hl="en", gl="us"):
-    if identifier not in ('topselling_paid', 'topselling_free'):
-        raise Exception("identifier must be topselling_paid or topselling_free")
+    if identifier not in ('topselling_paid', 'topselling_free', 'topgrossing'):
+        raise Exception("identifier must be topselling_paid or topselling_free or topgrossing")
 
     url = 'https://play.google.com/store/apps'
     if category:
